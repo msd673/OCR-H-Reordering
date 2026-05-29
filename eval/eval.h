@@ -79,11 +79,6 @@ struct UnionFind {
         return true;
     }
 };
-
-void read_graph_csr(const string& filename,
-                    vector<int>& csr_offsets,
-                    vector<int>& csr_edges,
-                    bool is_directed = true);
                     
 bool read_csr_direct(const string& filename,
                      vector<int>& csr_offsets,

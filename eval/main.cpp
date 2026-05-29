@@ -1,29 +1,26 @@
 #include "eval.h"
 
 int main(int argc, char* argv[]) {
-    if (argc < 5) {
-        cerr << "Usage: " << argv[0] << " <graph_file> <order_files_dir> <is_directed(0/1)> <traversal_id> [repeat_count]\n";
+    if (argc < 4) {
+        cerr << "Usage: " << argv[0] << " <graph_file> <order_files_dir> <traversal_id> [repeat_count]\n";
         cerr << "traversal_id: 1-BFS 2-DFS 3-SSSP 4-WCC 5-PageRank 6-Diameter\n";
         return 1;
     }
 
     const string graph_file = argv[1];
     const string order_files_dir = argv[2];
-    bool is_directed = (stoi(argv[3]) != 0);
-    int traversal_id = stoi(argv[4]);
-    int repeat_count = (argc >= 6) ? stoi(argv[5]) : 5;
+    int traversal_id = stoi(argv[3]);
+    int repeat_count = (argc >= 5) ? stoi(argv[4]) : 5;
     if (repeat_count <= 0) {
         cerr << "repeat_count must be positive." << endl;
         return 1;
     }
 
-    cout << "is_directed: " << boolalpha << is_directed << endl;
     cout << "traversal_type: " << traversal_id << " (1-BFS 2-DFS 3-SSSP 4-WCC 5-PageRank 6-Diameter)" << endl;
 
     vector<int> csr_offsets, csr_edges;
     read_csr_direct(graph_file, csr_offsets, csr_edges);
     CSRGraph original_graph(csr_offsets, csr_edges);
-    cout << "-----0-----" << endl;
 
     vector<int> test_nodes;
     if (traversal_id >= 1 && traversal_id <= 3) {
@@ -78,8 +75,6 @@ int main(int argc, char* argv[]) {
         optimal_reordered_graph = move(opt_pair.first);
     }
 
-    cout << "-----1-----" << endl;
-    cout << "-----2-----" << endl;
 
     cout << "╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
     cout << "║          Cache & traversal Performance Analysis (Hardware Measured Possible)                                ║\n";

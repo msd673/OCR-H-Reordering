@@ -49,7 +49,7 @@ uint64_t compute_kmer_hash(const vector<int>& kmer_vec, int a, int b);
 unordered_map<int, vector<uint64_t>> compute_topk_minhash_kmers(const unordered_map<int, vector<uint64_t>>& node_to_kmers, const vector<pair<int, int>>& hash_params);
 double jaccard_similarity_hash(const vector<uint64_t>& A, const vector<uint64_t>& B);
 
-pair<vector<int>, vector<int>> kmeans_clustering(vector<int>& csr_offsets, vector<int>& csr_edges, const vector<int>& vertex_list, const unordered_map<int, vector<uint64_t>>& node_to_minhash, int k_clusters, int x_candidates, const unordered_map<int, int>& out_degree);
+pair<vector<int>, vector<int>> kmeans_clustering(vector<int>& csr_offsets, vector<int>& csr_edges, const vector<int>& vertex_list, const unordered_map<int, vector<uint64_t>>& node_to_minhash, int k_clusters, const unordered_map<int, int>& out_degree);
 vector<pair<double, int>> sort_centers_by_similarity_with_score(const vector<int>& centers, const unordered_map<int, vector<uint64_t>>& node_to_minhash);
 
 

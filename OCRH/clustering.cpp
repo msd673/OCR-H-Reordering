@@ -7,7 +7,6 @@ pair<vector<int>, vector<int>> kmeans_clustering(
     const vector<int>& vertex_list,
     const unordered_map<int, vector<uint64_t>>& node_to_minhash_kmers,
     int k_clusters,
-    int x_candidates,
     const unordered_map<int, int>& out_degree_map
 ) {
     using namespace std::chrono;
@@ -128,7 +127,7 @@ pair<vector<int>, vector<int>> kmeans_clustering(
             
             sort(node_degrees.begin(), node_degrees.end());
             vector<int> candidates;
-            int take = min(x_candidates, (int)node_degrees.size());
+            int take = min(256, (int)node_degrees.size());
             for (int i = 0; i < take; ++i) {
                 candidates.push_back(node_degrees[i].second);
             }

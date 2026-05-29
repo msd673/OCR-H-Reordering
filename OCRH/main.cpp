@@ -4,19 +4,18 @@ int main(int argc, char* argv[]) {
     auto total_start = high_resolution_clock::now();
 
     
-    if (argc < 6) {
-        cerr << "Usage: " << argv[0] << " <graph_file> <topk> <x> <k_clusters> <traversal_type> [-large]" << endl;
+    if (argc < 5) {
+        cerr << "Usage: " << argv[0] << " <graph_file> <topk><k_clusters> <traversal_type> [-large]" << endl;
         return 1;
     }
 
     string fileName = argv[1];
     int topk = stoi(argv[2]);
-    int x_candidates = stoi(argv[3]);
-    int k_clusters = stoi(argv[4]);
-    int traversal_type = stoi(argv[5]);  
+    int k_clusters = stoi(argv[3]);
+    int traversal_type = stoi(argv[4]);  
     string scale_type = "-small";
     if (argc >= 7) {
-        scale_type = argv[6];
+        scale_type = argv[5];
         if (scale_type != "-large" && scale_type != "-small") {
             cerr << "Invalid scale flag: " << scale_type << ". Use -large for large graphs; small graph mode is the default." << endl;
             return 1;
@@ -260,7 +259,7 @@ int main(int argc, char* argv[]) {
     cout << "[Stage 7] Starting k-means clustering, number of clusters:  " << k_clusters << "..." << endl;
     vector<int> vertex_list(V);
     iota(vertex_list.begin(), vertex_list.end(), 0);
-    auto [clusters, centers] = kmeans_clustering(csr_offsets, csr_edges, vertex_list, node_to_minhash_kmers, k_clusters, x_candidates, out_degree_map);
+    auto [clusters, centers] = kmeans_clustering(csr_offsets, csr_edges, vertex_list, node_to_minhash_kmers, k_clusters, out_degree_map);
     auto stage7_end = high_resolution_clock::now();
     cout << "[Stage 7] Clustering completed, time elapsed: " 
         << duration_cast<milliseconds>(stage7_end - stage7_start).count() 
